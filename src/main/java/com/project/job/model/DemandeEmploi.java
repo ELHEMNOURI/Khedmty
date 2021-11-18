@@ -1,6 +1,8 @@
 package com.project.job.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.job.DTO.DemandeEmploiDTO;
+import com.project.job.DTO.ExprerienceDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -52,5 +54,21 @@ public class DemandeEmploi {
     @OneToMany(mappedBy = "demandeEmploi", cascade= CascadeType.ALL)
     @JsonIgnore
     private List<Diplome> diplomes;
+
+    public DemandeEmploiDTO convertModelDTO () {
+        DemandeEmploiDTO demandeEmploiDTO = new DemandeEmploiDTO();
+        demandeEmploiDTO.setId(this.id);
+        demandeEmploiDTO.setDateDemande(this.dateDemande);
+        demandeEmploiDTO.setTelephone(this.telephone);
+        demandeEmploiDTO.setAddress(this.address);
+        demandeEmploiDTO.setTitreDemande(this.titreDemande);
+        demandeEmploiDTO.setCreator(this.creator);
+        demandeEmploiDTO.setCv(this.cv);
+        demandeEmploiDTO.setFormations(this.formations);
+        demandeEmploiDTO.setExpreriences(this.expreriences);
+        demandeEmploiDTO.setDiplomes(this.diplomes);
+
+        return  demandeEmploiDTO;
+    }
 
 }
