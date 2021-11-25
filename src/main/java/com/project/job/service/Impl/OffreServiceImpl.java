@@ -2,6 +2,7 @@ package com.project.job.service.Impl;
 
 import com.project.job.DTO.OffreDTO;
 import com.project.job.Dao.OffreDao;
+import com.project.job.enums.StatusOffre;
 import com.project.job.model.Offre;
 import com.project.job.service.OffreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class OffreServiceImpl implements OffreService {
         offre1.setCreator(offre.getCreator());
         offre1.setCreatedAt(offre.getCreatedAt());
         offre1.setUpdatedAt(offre.getUpdatedAt());
+        offre1.setStatus(StatusOffre.ENATTENTE.getName());
         offreDao.save(offre1);
     }
 
@@ -37,5 +39,23 @@ public class OffreServiceImpl implements OffreService {
         return offreDao.findAll();
     }
 
+    @Override
+    public List<Offre> findAllByStatus(String status){
+        return offreDao.findAllByStatus(status);
+    }
+
+    @Override
+    public Offre updateOffre(Long id, OffreDTO offreDTO){
+        Offre oldOffre = findById(id);
+
+        if(oldOffre != null && offreDTO != null) {
+            if (offreDTO.getStatus().equals(StatusOffre.VALIDER.getName())) {
+                oldOffre.setStatus(StatusOffre.VALIDER.getName());
+            } else if (offreDTO.getStatus().equals(StatusOffre.INVALIDE.getName())) {
+                oldOffre.setStatus(StatusOffre.INVALIDE.getName());
+            }
+        }
+        return offreDao.save(oldOffre);
+    }
 
 }

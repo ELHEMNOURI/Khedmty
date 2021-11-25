@@ -2,10 +2,7 @@ package com.project.job.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.job.DTO.DemandeEmploiDTO;
-import com.project.job.DTO.ExprerienceDTO;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -40,6 +37,8 @@ public class DemandeEmploi {
 
     private Long creator;
 
+    private String status;
+
     @OneToOne
     private Cv cv;
 
@@ -63,6 +62,7 @@ public class DemandeEmploi {
         demandeEmploiDTO.setAddress(this.address);
         demandeEmploiDTO.setTitreDemande(this.titreDemande);
         demandeEmploiDTO.setCreator(this.creator);
+        demandeEmploiDTO.setStatus(this.status);
         demandeEmploiDTO.setCv(this.cv);
         demandeEmploiDTO.setFormations(this.formations);
         demandeEmploiDTO.setExpreriences(this.expreriences);
@@ -70,5 +70,4 @@ public class DemandeEmploi {
 
         return  demandeEmploiDTO;
     }
-
 }

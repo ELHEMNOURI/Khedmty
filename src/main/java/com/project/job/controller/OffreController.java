@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class OffreController {
         Offre offre = offreService.findById(idOffre);
         if (offre == null) {
             throw new ApiRequestException("This Request Is Invalid!",
-                    "Gite with the given id does not exist");
+                    "Offre with the given id does not exist");
         }
         return response.successResponse("Offre {}" +
                 "" +
@@ -58,5 +59,32 @@ public class OffreController {
 
         offreService.createOffre(offre);
         return response.successResponse("Offre created !!", true);
+    }
+
+    @GetMapping(value = "/AllOffres/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ResponseDTO> allOffresByStatus(@PathVariable String status) {
+        LOGGER.info("Request to return a given offres by status : {}", status);
+        List<Offre> offres = offreService.findAllByStatus(status);
+        List<OffreDTO> offresDTOS = listOffresToDTO(offres);
+
+        return response.successResponse("\"All Offres By status\"returned successfully", offresDTOS);
+    }
+    public List<OffreDTO> listOffresToDTO(List<Offre> offres){
+        List<OffreDTO> offresDTO = new ArrayList<>();
+        offres.forEach(offre -> {
+            offresDTO.add(offre.convertModelDTO());
+        });
+        return offresDTO;
+    }
+    @PutMapping(value = "/updateOffre/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ResponseDTO> updateOffre(
+            @Valid @PathVariable("id") Long id,
+            @Valid @RequestBody OffreDTO offreDTO) throws IOException {
+
+        Offre offre = offreService.updateOffre(id, offreDTO);
+
+        return response.successResponse("Offre updated !!", offre.convertModelDTO());
     }
 }

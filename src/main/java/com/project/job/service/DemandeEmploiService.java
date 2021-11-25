@@ -9,4 +9,5 @@ public interface DemandeEmploiService {
     List<DemandeEmploi> findAllDemandes();
     void createDemandeEmploi(DemandeEmploiDTO demande);
     void updateDemandeEmploi(Long id, DemandeEmploiDTO demande);
+    List<DemandeEmploi> findAllStatus(String sattus);
 }

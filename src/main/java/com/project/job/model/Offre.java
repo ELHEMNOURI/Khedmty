@@ -35,6 +35,7 @@ public class Offre {
 
     private String description;
 
+    private String status;
     @OneToMany
     @JsonIgnore
     private List<Recruteur> recruteurs;
@@ -58,7 +59,7 @@ public class Offre {
         offreDTO.setCreator(this.creator);
         offreDTO.setDescription(this.description);
         offreDTO.setUpdatedAt(this.updatedAt);
-
+        offreDTO.setStatus(this.status);
 
         /*if (this.demandeurs != null) {
             Set<RecruteurDTO> v = new HashSet<>();

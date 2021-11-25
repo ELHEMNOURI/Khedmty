@@ -22,10 +22,21 @@ public class Formation {
 
     private Date dateformation;
 
-    private String Description;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name="demande_emploi_id", nullable = false)
     private DemandeEmploi demandeEmploi;
 
+
+    public Object convertModelDTO() {
+        Formation formation = new Formation();
+        formation.setId(this.id);
+        formation.setNomFormation(this.nomFormation);
+        formation.setDateformation(this.dateformation);
+        formation.setDescription(this.description);
+        formation.setDemandeEmploi(this.demandeEmploi);
+
+        return formation;
+    }
 }

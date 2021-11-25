@@ -2,6 +2,7 @@ package com.project.job.service.Impl;
 
 import com.project.job.DTO.DemandeEmploiDTO;
 import com.project.job.Dao.DemandeEmploiDao;
+import com.project.job.enums.DemandeEmploiStatus;
 import com.project.job.model.DemandeEmploi;
 import com.project.job.service.DemandeEmploiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class DemandeEmploiServiceImpl implements DemandeEmploiService {
         demandeEmploi.setAddress(demande.getAddress());
         demandeEmploi.setTitreDemande(demande.getTitreDemande());
         demandeEmploi.setCreator(demande.getCreator());
+        demandeEmploi.setStatus(DemandeEmploiStatus.ENATTENTE.getName());
         demandeEmploi.setCv(demande.getCv());
         demandeEmploi.setFormations(demande.getFormations());
         demandeEmploi.setExpreriences(demande.getExpreriences());
@@ -53,6 +55,19 @@ public class DemandeEmploiServiceImpl implements DemandeEmploiService {
         demandeEmploi.setExpreriences(demande.getExpreriences());
         demandeEmploi.setDiplomes(demande.getDiplomes());
 
+        if(demandeEmploi != null && demande != null){
+            if(demande.getStatus().equals(DemandeEmploiStatus.VALIDER.getName())){
+                demandeEmploi.setStatus(DemandeEmploiStatus.VALIDER.getName());
+            }else if(demande.getStatus().equals(DemandeEmploiStatus.INVALIDE.getName())){
+                demandeEmploi.setStatus(DemandeEmploiStatus.INVALIDE.getName());
+            }
+        }
+
         demandeEmploiDao.save(demandeEmploi);
+    }
+
+    @Override
+    public List<DemandeEmploi> findAllStatus(String sattus) {
+        return null;
     }
 }

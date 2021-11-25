@@ -13,6 +13,7 @@ public class DemandeEmploiDTO {
     private String address;
     private String titreDemande;
     private Long creator;
+    private String status;
     private Cv cv;
     private List<Formation> formations;
     private List<Exprerience> expreriences;
@@ -26,6 +27,7 @@ public class DemandeEmploiDTO {
         demande.setAddress(this.address);
         demande.setTitreDemande(this.titreDemande);
         demande.setCreator(this.creator);
+        demande.setStatus((this.status));
         demande.setCv(this.cv);
         demande.setFormations(this.formations);
         demande.setExpreriences(this.expreriences);

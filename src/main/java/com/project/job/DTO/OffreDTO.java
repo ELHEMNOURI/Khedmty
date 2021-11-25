@@ -26,6 +26,7 @@ public class OffreDTO {
 
    private Recruteur recruteur;
 
+   private String status;
    private Set<Demandeur> demandeurs;
 
    public Offre convertDtoToModel(){
@@ -37,6 +38,7 @@ public class OffreDTO {
       //offre.setRecruteur(this.recruteur);
       offre.setUpdatedAt(this.updatedAt);
       offre.setCreator(this.creator);
+      offre.setStatus(this.status);
 
       return offre;
    }
